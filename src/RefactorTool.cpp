@@ -23,16 +23,16 @@ void RefactorHandler::run(const MatchFinder::MatchResult &Result) {
     auto& Diag = Result.Context->getDiagnostics();
     auto& SM = *Result.SourceManager; // Получаем SourceManager для проверки isInMainFile
     
-    if (const auto *Dtor = Result.Nodes.getNodeAs<CXXDestructorDecl>("nonVirtualDtor")) {
+    if (const auto *Dtor = Result.Nodes.getNodeAs<CXXDestructorDecl>("classDecl")) {
         handle_nv_dtor(Dtor, Diag, SM);
     }
 
-    if (const auto *Method = Result.Nodes.getNodeAs<CXXMethodDecl>("missingOverride");
+    if (const auto *Method = Result.Nodes.getNodeAs<CXXMethodDecl>("methodDecl");
         Method && Method->size_overridden_methods() > 0 && !Method->hasAttr<OverrideAttr>()) {
         handle_miss_override(Method, Diag, SM);
     }
 
-    if (const auto *LoopVar = Result.Nodes.getNodeAs<VarDecl>("const var")) {
+    if (const auto *LoopVar = Result.Nodes.getNodeAs<VarDecl>("VarDecl")) {
         handle_crange_for(LoopVar, Diag, SM);
     }
 }
@@ -41,21 +41,36 @@ void RefactorHandler::run(const MatchFinder::MatchResult &Result) {
 void RefactorHandler::handle_nv_dtor(const CXXDestructorDecl *Dtor,
                             DiagnosticsEngine &Diag,
                             SourceManager &SM) {
-    //Реализуйте Ваш код здесь
+    //Реализуйте Ваш код ниже
+    const unsigned DiagID = Diag.getCustomDiagID(
+            DiagnosticsEngine::Remark,
+            "Объявлен деструктор"
+        );
+    Diag.Report(Dtor->getLocation(), DiagID);
 }
 
 //todo: необходимо реализовать обработку случая отсутствие override
 void RefactorHandler::handle_miss_override(const CXXMethodDecl *Method,
                             DiagnosticsEngine &Diag,
                             SourceManager &SM) {
-    //Реализуйте Ваш код здесь
+    //Реализуйте Ваш код ниже
+    const unsigned DiagID = Diag.getCustomDiagID(
+            DiagnosticsEngine::Remark,
+            "Объявлен метод"
+        );
+    Diag.Report(Method->getLocation(), DiagID);
 }
 
 //todo: необходимо реализовать обработку случая отсутствие & в range-for
 void RefactorHandler::handle_crange_for(const VarDecl *LoopVar,
                                         DiagnosticsEngine &Diag,
                                         SourceManager &SM){
-    // Реализуйте Ваш код здесь
+    // Реализуйте Ваш код ниже
+    const unsigned DiagID = Diag.getCustomDiagID(
+            DiagnosticsEngine::Remark,
+            "Объявлена переменная"
+        );
+    Diag.Report(LoopVar->getLocation(), DiagID);
 }
 
 //todo: ниже необходимо реализовать матчеры для поиска узлов AST
@@ -69,14 +84,20 @@ void RefactorHandler::handle_crange_for(const VarDecl *LoopVar,
 */
 auto NvDtorMatcher()
 {
+    //todo: замените код ниже, на свою реализацию, необходимо реализовать матчеры для поиска невиртуальных деструкторов
+    return cxxDestructorDecl().bind("classDecl");
 }
 
 auto NoOverrideMatcher()
 {
+    //todo: замените код ниже, на свою реализацию, необходимо реализовать матчеры для поиска методов без override
+    return cxxMethodDecl().bind("methodDecl");
 }
 
 auto NoRefConstVarInRangeLoopMatcher()
 {
+    //todo: замените код ниже, на свою реализацию, необходимо реализовать матчеры для поиска range-for без &
+    return varDecl().bind("VarDecl");
 }
 
 // Конструктор принимает Rewriter для изменения кода.
