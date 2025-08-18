@@ -9,7 +9,7 @@ TEST_FILES=("test1.cpp" "test2.cpp" "test3.cpp")
 REF_FILES=("$TEST_DATA_FLDR/test1_ref.cpp" "$TEST_DATA_FLDR/test2_ref.cpp" "$TEST_DATA_FLDR/test3_ref.cpp")
 
 # Путь к утилите студента
-TOOL="./build/refactor_tool"  # Замените на путь к бинарнику студента
+TOOL="./build/refactor_tool"
 
 # Массивы для хранения результатов
 declare -a TEST_RESULTS
