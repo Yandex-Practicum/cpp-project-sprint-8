@@ -18,25 +18,25 @@
 
 ## Сборка проекта и запуск тестов
 
-Данный репозиторий использует три инструмента:
+Этот репозиторий использует три инструмента:
 
-- **cmake** — генератор систем сборки для C и C++. Позволяет создавать проекты, которые могут компилироваться на различных платформах и с различными компиляторами. Подробнее о cmake:
+- **cmake** — генератор систем сборки для C и C++. Позволяет создавать проекты, которые могут компилироваться на различных платформах различными компиляторами. Подробнее о cmake:
   - https://dzen.ru/a/ZzZGUm-4o0u-IQlb
   - https://neerc.ifmo.ru/wiki/index.php?title=CMake_Tutorial
   - https://cmake.org/cmake/help/book/mastering-cmake/cmake/Help/guide/tutorial/index.html
 
-- **VS Code Dev Docker container** - Docker контейнер, который содержит полностью настроенное окружение для выполнение задания. Подробнее об этой функциональности:
-  - https://habr.com/ru/articles/822707/ - "Почти все, что вы хотели бы знать про Docker"
-  - https://code.visualstudio.com/docs/devcontainers/containers - официальная документация VS Code
-  - https://www.youtube.com/watch?v=p9L7YFqHGk4 - "Docker container for VS Code"
-  - https://www.youtube.com/watch?v=pg19Z8LL06w&t=174s&pp=ygUPRG9ja2VyY29udGFpbmVy - "Docker in 1 hour"
+- **VS Code Dev Docker container** — Docker-контейнер с полностью настроенным окружением для выполнения задания:
+  - [Почти всё, что вы хотели бы знать про Docker](https://habr.com/ru/articles/822707/)
+  - [Официальная документация VS Code](https://code.visualstudio.com/docs/devcontainers/containers)
+  - [Docker container for VS Code](https://www.youtube.com/watch?v=p9L7YFqHGk4)
+  - [Docker in 1 hour](https://www.youtube.com/watch?v=pg19Z8LL06w&t=174s&pp=ygUPRG9ja2VyY29udGFpbmVy)
 
 ### Команды для сборки проекта
 
-- Создайте папку `build`
-- Перейдите в нее `cd build`
-- Запустите `cmake -DCMAKE_BUILD_TYPE=Debug -DCT_Clang_INSTALL_DIR=/usr/lib/llvm-20/ ../ `
-- Запустите `make`
+- Создать папку `build`.
+- Перейте в неё `cd build`.
+- Запустить cmake `cmake -DCMAKE_BUILD_TYPE=Debug -DCT_Clang_INSTALL_DIR=/usr/lib/llvm-20/ ../ `.
+- Запустить `make`.
 
 ### Команды для запуска приложения
 
@@ -46,6 +46,6 @@ cd build
 ./refactor_tool ../tests_data/for_refactor.cpp
 ```
 
-Для запуска отладки нажмите `F5`, будет произведена сборка и отладка проекта.
+Чтобы запустить сборку и отладку проекта, нажмите `F5`.
 
-Для проверки Ваших изменений так же предусмотрен скрипт `check_refactor.sh`, запустив который, Вы сможете проверить базовые сценарии рафакторинга.
+Для проверки базовых сценариев рафакторинга запустите скрипт `check_refactor.sh`.
